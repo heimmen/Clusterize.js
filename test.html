@@ -34,7 +34,10 @@
 
     <script>
         var data = [], row = [];
-        var ROW_COUNT = 50001;
+        var ROW_COUNT = 1000;
+        const ROWS_IN_BLOCK = 12;
+        const BLOCKS_IN_CLUSTER = 6;
+        const ROWS_IN_CLUSTER = ROWS_IN_BLOCK * BLOCKS_IN_CLUSTER;
         for (var i = 0; i <= ROW_COUNT; i++) {
             row.length = 0;
             row.push('<tr>');
@@ -45,8 +48,8 @@
             row.push('<td>' + i + '</td>');
             row.push('<td>' + i + '</td>');
             row.push('<td>' + i + '</td>');
-            if (i === 0)
-                row.push(`<td rowspan="${ROW_COUNT}">' + ${ROW_COUNT} + '</td>`);
+            if (i % ROWS_IN_BLOCK === 0)
+                row.push(`<td rowspan="${ROWS_IN_BLOCK}"> SPAN: ${i} </td>`);
                 
             row.push('<td>' + i + '</td>');
             row.push('</tr>');
@@ -57,8 +60,8 @@
                 rows: data,
                 scrollId: 'scrollArea',
                 contentId: 'contentArea',
-                rows_in_block: 3,
-                blocks_in_cluster: 4
+                rows_in_block: ROWS_IN_BLOCK,
+                blocks_in_cluster: BLOCKS_IN_CLUSTER
             });
     </script>
 
